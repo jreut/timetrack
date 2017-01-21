@@ -1,5 +1,18 @@
 # frozen_string_literal: true
+require 'rspec/snapshot'
+
+module Helpers
+  def fixture_file(filename)
+    fixture_path = Pathname.pwd.join 'spec/fixtures/files'
+    file_path = fixture_path.join filename
+    File.open file_path, 'r'
+  end
+end
+
 RSpec.configure do |config|
+  config.include Helpers
+  config.snapshot_dir = 'spec/fixtures/snapshots'
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end

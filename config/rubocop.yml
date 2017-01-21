@@ -3,3 +3,4 @@ Metrics/BlockLength:
   Exclude:
     # Ignore RSpec DSL
     - spec/**/*
+    - '*.gemspec'
