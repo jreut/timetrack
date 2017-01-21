@@ -1,5 +1,7 @@
 # Timetrack
 
+[![CircleCI](https://circleci.com/gh/jreut/timetrack/tree/master.svg?style=svg)](https://circleci.com/gh/jreut/timetrack/tree/master)
+
 Track time spent on tasks in a [ledger][ledger]-like format.
 
 ## Installation
