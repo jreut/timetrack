@@ -16,7 +16,7 @@ module Timetrack
     rule(:date) { year >> str('/') >> month >> str('/') >> day }
     rule(:hour) { match['\d'].repeat 2 }
     rule(:minute) { match['\d'].repeat 2 }
-    rule(:time) { hour >> str(':') >> minute }
+    rule(:time) { (hour >> str(':') >> minute).as(:time) }
     rule(:begin_time) { (gutter >> time.as(:begin)) }
     rule(:end_time) { (gutter >> time.as(:end)).maybe }
     rule(:times) { begin_time >> end_time }
@@ -29,9 +29,9 @@ module Timetrack
       gutter >> submission_block >> task >> times >> comment_block >> to_eol
     end
     rule(:events) { (event.as(:event) >> newline).repeat }
-    rule(:event_day) { date >> newline >> events }
+    rule(:event_day) { date.as(:date) >> newline >> events.as(:events) }
     rule(:days) do
-      (event_day.as(:day) >> newline.repeat).repeat
+      (event_day >> newline.repeat).repeat
     end
     rule(:document) { days >> newline.repeat >> eof }
     root :document
