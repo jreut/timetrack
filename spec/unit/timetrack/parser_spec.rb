@@ -4,7 +4,7 @@ require 'parslet/rig/rspec'
 require 'timetrack/parser'
 
 RSpec.describe Timetrack::Parser do
-  subject { described_class.new }
+  let(:object) { described_class.new }
 
   let(:day_with_events) do
     <<END
@@ -30,92 +30,62 @@ END
   end
 
   let(:days) do
-    [day_with_events, day_without_events, day_with_submitted_event].join("\n")
+    [
+      day_with_events,
+      day_without_events,
+      day_with_submitted_event
+    ].join "\n"
   end
 
   describe 'task' do
-    it 'should consume a six-digit number' do
-      expect(subject.task).to parse '123456'
-    end
+    subject { object.task }
+    it { should parse '123456' }
   end
 
   describe 'date' do
-    it 'should consume a YYYY/MM/DD string' do
-      expect(subject.date).to parse '2016/01/20'
-    end
-
-    it 'should reject a DD/MM/YYYY string' do
-      expect(subject.date).not_to parse '20/01/2016'
-    end
-
-    it 'should reject a MM/DD/YYYY string' do
-      expect(subject.date).not_to parse '01/20/2016'
-    end
+    subject { object.date }
+    it { should parse '2016/01/20' }
+    it { should_not parse '20/01/2016' }
+    it { should_not parse '01/20/2016' }
   end
 
   describe 'time' do
-    it 'should consume a HH:MM string' do
-      expect(subject.time).to parse '00:00'
-    end
+    subject { object.time }
+    it { should parse '00:00' }
   end
 
   describe 'comment' do
-    it 'should consume a comment string' do
-      expect(subject.comment).to parse '; hello there'
-    end
-
-    it 'should consume a comment string without a leading space' do
-      expect(subject.comment).to parse ';no space here'
-    end
+    subject { object.comment }
+    it { should parse '; hello there' }
+    it { should parse ';no space here' }
   end
 
   describe 'submission_marker' do
-    it 'should consume an asterisk' do
-      expect(subject.submission_marker).to parse '*'
-    end
+    subject { object.submission_marker }
+    it { should parse '*' }
   end
 
   describe 'event' do
-    it 'should consume a submitted event' do
-      expect(subject.event).to parse '  * 123456  10:00  11:00  ; some thing happened'
-    end
-
-    it 'should consume an unsubmitted event' do
-      expect(subject.event).to parse '  123456  10:00  11:00  ; nothing happened'
-    end
-
-    it 'should consume an event with no comment and trailing whitespace' do
-      expect(subject.event).to parse '  123456  10:00  11:00   '
-    end
-
-    it 'should consume an event with a comment and no ending time' do
-      expect(subject.event).to parse '  123456  10:00    ; this is a neat comment'
-    end
+    subject { object.event }
+    it { should parse '  * 123456  10:00  11:00  ; some thing happened' }
+    it { should parse '  123456  10:00  11:00  ; nothing happened' }
+    it { should parse '  123456  10:00  11:00   ' }
+    it { should parse '  123456  10:00    ; this is a neat comment' }
   end
 
   describe 'event_day' do
-    it 'should consume a day with unusubmitted events' do
-      expect(subject.event_day).to parse day_with_events
-    end
-
-    it 'should consume a day with no events' do
-      expect(subject.event_day).to parse day_without_events
-    end
-
-    it 'should consume a day with a submitted event' do
-      expect(subject.event_day).to parse day_with_submitted_event
-    end
+    subject { object.event_day }
+    it { should parse day_with_events }
+    it { should parse day_without_events }
+    it { should parse day_with_submitted_event }
   end
 
   describe 'days' do
-    it 'should consume several days' do
-      expect(subject.days).to parse days
-    end
+    subject { described_class.new.days }
+    it { should parse days }
   end
 
   describe 'root' do
-    it 'should consume a several days, optionally followed by blank lines' do
-      expect(subject).to parse(days + "\n\n\n")
-    end
+    it { should parse(days + "\n\n\n") }
   end
 end
