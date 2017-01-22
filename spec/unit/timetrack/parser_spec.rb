@@ -35,53 +35,55 @@ END
 
   describe 'task' do
     subject { object.task }
-    it { should parse '123456' }
+    it { is_expected.to parse '123456' }
   end
 
   describe 'date' do
     subject { object.date }
-    it { should parse '2016/01/20' }
-    it { should_not parse '20/01/2016' }
-    it { should_not parse '01/20/2016' }
+    it { is_expected.to parse '2016/01/20' }
+    it { is_expected.not_to parse '20/01/2016' }
+    it { is_expected.not_to parse '01/20/2016' }
   end
 
   describe 'time' do
     subject { object.time }
-    it { should parse '00:00' }
+    it { is_expected.to parse '00:00' }
   end
 
   describe 'comment' do
     subject { object.comment }
-    it { should parse '; hello there' }
-    it { should parse ';no space here' }
+    it { is_expected.to parse '; hello there' }
+    it { is_expected.to parse ';no space here' }
   end
 
   describe 'submission_marker' do
     subject { object.submission_marker }
-    it { should parse '*' }
+    it { is_expected.to parse '*' }
   end
 
   describe 'event' do
     subject { object.event }
-    it { should parse '  * 123456  10:00  11:00  ; some thing happened' }
-    it { should parse '  123456  10:00  11:00  ; nothing happened' }
-    it { should parse '  123456  10:00  11:00   ' }
-    it { should parse '  123456  10:00    ; this is a neat comment' }
+    it do
+      is_expected.to parse '  * 123456  10:00  11:00  ; some thing happened'
+    end
+    it { is_expected.to parse '  123456  10:00  11:00  ; nothing happened' }
+    it { is_expected.to parse '  123456  10:00  11:00   ' }
+    it { is_expected.to parse '  123456  10:00    ; this is a neat comment' }
   end
 
   describe 'event_day' do
     subject { object.event_day }
-    it { should parse day_with_events }
-    it { should parse day_without_events }
-    it { should parse day_with_submitted_event }
+    it { is_expected.to parse day_with_events }
+    it { is_expected.to parse day_without_events }
+    it { is_expected.to parse day_with_submitted_event }
   end
 
   describe 'days' do
     subject { described_class.new.days }
-    it { should parse days }
+    it { is_expected.to parse days }
   end
 
   describe 'root' do
-    it { should parse(days + "\n\n\n") }
+    it { is_expected.to parse(days + "\n\n\n") }
   end
 end

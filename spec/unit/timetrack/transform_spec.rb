@@ -6,7 +6,7 @@ RSpec.describe Timetrack::Transform do
   context 'time' do
     let(:ast) { { time: '18:24' } }
     specify do
-      should eql Timetrack::Transform::UnassociatedTime.new(
+      is_expected.to eql Timetrack::Transform::UnassociatedTime.new(
         hour: 18,
         minute: 24
       )
@@ -19,14 +19,14 @@ RSpec.describe Timetrack::Transform do
         event: {
           submitted: '*',
           task: '098765',
-          begin: double('some beginning time'),
-          end: double('some ending time'),
+          begin: instance_double(Hash),
+          end: instance_double(Hash),
           comment: 'hello'
         }
       }
     end
-    specify do
-      should eql Timetrack::Transform::UnassociatedEvent.new(
+    let(:expected) do
+      Timetrack::Transform::UnassociatedEvent.new(
         submitted: true,
         task: ast[:event][:task],
         begin: ast[:event][:begin],
@@ -34,11 +34,13 @@ RSpec.describe Timetrack::Transform do
         comment: ast[:event][:comment]
       )
     end
+
+    specify { is_expected.to eql expected }
   end
 
   context 'date' do
     let(:ast) { { date: '2016/01/21' } }
-    specify { should eql Date.new(2016, 1, 21) }
+    specify { is_expected.to eql Date.new(2016, 1, 21) }
   end
 
   context 'day' do
@@ -60,9 +62,8 @@ RSpec.describe Timetrack::Transform do
         events: [unassociated_event]
       }
     end
-
-    specify do
-      should eql Timetrack::Transform::Day.new(
+    let(:expected) do
+      Timetrack::Transform::Day.new(
         date: ast[:date],
         events: [
           Timetrack::Transform::Event.new(
@@ -74,5 +75,7 @@ RSpec.describe Timetrack::Transform do
         ]
       )
     end
+
+    specify { is_expected.to eql expected }
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 RSpec.describe Timetrack::Reader do
-  subject do
+  let(:reader) do
     described_class.new(
       parser: parser,
       transform: transform,
@@ -11,7 +11,7 @@ RSpec.describe Timetrack::Reader do
   let(:transform) { instance_double Timetrack::Transform }
   let(:input) { instance_double IO }
   let(:string) { instance_double String }
-  let(:parsed) { double('parsed data structure') }
+  let(:parsed) { instance_double Hash }
 
   before do
     allow(input).to receive(:read).with(no_args).and_return(string)
@@ -20,20 +20,20 @@ RSpec.describe Timetrack::Reader do
   end
 
   context '#load' do
-    after do
-      subject.load
+    before do
+      reader.load
     end
 
-    it 'should call input#read' do
-      expect(input).to receive(:read).with no_args
+    it 'calls input#read' do
+      expect(input).to have_received(:read).with no_args
     end
 
-    it 'should call parser#parse with the value of input#read' do
-      expect(parser).to receive(:parse).with input.read
+    it 'calls parser#parse with the value of input#read' do
+      expect(parser).to have_received(:parse).with input.read
     end
 
-    it 'should call transform#apply with the value of parser#parse' do
-      expect(transform).to receive(:apply).with parsed
+    it 'calls transform#apply with the value of parser#parse' do
+      expect(transform).to have_received(:apply).with parsed
     end
   end
 end

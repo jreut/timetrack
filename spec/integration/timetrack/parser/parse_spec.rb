@@ -4,8 +4,8 @@ RSpec.describe Timetrack::Parser, '#parse' do
 
   context 'a simple document' do
     subject { object.parse(fixture_file('simple_document.txt').read).to_s }
-    it 'parses to the expected AST' do
-      should match_snapshot('parsed_simple_document')
+    it 'matches its snapshot' do
+      is_expected.to match_snapshot('parsed_simple_document')
     end
   end
 end
