@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-require 'spec_helper'
-require 'parslet/rig/rspec'
-require 'timetrack/parser'
-
 RSpec.describe Timetrack::Parser do
   let(:object) { described_class.new }
 

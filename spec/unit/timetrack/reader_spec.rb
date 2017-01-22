@@ -1,9 +1,4 @@
 # frozen_string_literal: true
-require 'spec_helper'
-require 'timetrack/parser'
-require 'timetrack/reader'
-require 'timetrack/transform'
-
 RSpec.describe Timetrack::Reader do
   subject do
     described_class.new(

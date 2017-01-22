@@ -1,5 +1,8 @@
 # frozen_string_literal: true
+require 'timetrack'
+require 'devtools/spec_helper'
 require 'rspec/snapshot'
+require 'parslet/rig/rspec'
 require 'support/helpers'
 
 RSpec.configure do |config|

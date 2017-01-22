@@ -1,6 +1,12 @@
 # frozen_string_literal: true
+require 'anima'
+require 'parslet'
+require 'thor'
+
+require 'timetrack/cli'
 require 'timetrack/parser'
-require 'timetrack/runtime'
+require 'timetrack/reader'
+require 'timetrack/transform'
 require 'timetrack/version'
 
 # :nodoc:

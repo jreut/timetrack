@@ -1,7 +1,4 @@
 # frozen_string_literal: true
-require 'spec_helper'
-require 'timetrack/transform'
-
 RSpec.describe Timetrack::Transform do
   subject { object.apply(ast) }
   let(:object) { described_class.new }

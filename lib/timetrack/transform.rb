@@ -1,7 +1,4 @@
 # frozen_string_literal: true
-require 'parslet'
-require 'anima'
-
 module Timetrack
   # Transform a deeply-nested hash into a rich object graph
   class Transform < Parslet::Transform

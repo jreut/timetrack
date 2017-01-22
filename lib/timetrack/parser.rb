@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'parslet'
-
 module Timetrack
   # Read an IO and parse it into an AST
   class Parser < Parslet::Parser

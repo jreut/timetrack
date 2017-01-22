@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'anima'
-
 module Timetrack
   # Assemble a parser, a transform, and an IO-like object together to turn them
   # into an AST.
