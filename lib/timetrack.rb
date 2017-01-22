@@ -1,8 +1,9 @@
 # frozen_string_literal: true
-require 'timetrack/version'
 require 'timetrack/parser'
+require 'timetrack/runtime'
+require 'timetrack/version'
 
-# Entrypoint for gem
+# :nodoc:
 #
 # @api private
 module Timetrack

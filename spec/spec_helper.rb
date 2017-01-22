@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 require 'rspec/snapshot'
-
-module Helpers
-  def fixture_file(filename)
-    fixture_path = Pathname.pwd.join 'spec/fixtures/files'
-    file_path = fixture_path.join filename
-    File.open file_path, 'r'
-  end
-end
+require 'support/helpers'
 
 RSpec.configure do |config|
-  config.include Helpers
+  config.include Spec::Helpers
   config.snapshot_dir = 'spec/fixtures/snapshots'
 
   config.expect_with :rspec do |expectations|
