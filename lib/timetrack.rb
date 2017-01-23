@@ -4,6 +4,7 @@ require 'parslet'
 require 'thor'
 
 require 'timetrack/cli'
+require 'timetrack/event'
 require 'timetrack/parser'
 require 'timetrack/reader'
 require 'timetrack/transform'

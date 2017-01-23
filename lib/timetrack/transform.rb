@@ -13,12 +13,9 @@ module Timetrack
     end
     rule(date: simple(:date)) { Date.parse date }
     rule(date: simple(:date), events: sequence(:events)) do
-      Day.new(
-        date: date,
-        events: events.map do |unassociated_event|
-          unassociated_event.to_event date
-        end
-      )
+      events.map do |unassociated_event|
+        unassociated_event.to_event date
+      end
     end
 
     # Intermediate event representation before it's been associated with a date
@@ -43,16 +40,6 @@ module Timetrack
       def to_time(date)
         Time.new date.year, date.month, date.day, hour, minute
       end
-    end
-
-    # Value object for an event that has its date information
-    class Event
-      include Anima.new :submitted, :task, :begin, :end, :comment
-    end
-
-    # Value object for a day and its events
-    class Day
-      include Anima.new :date, :events
     end
   end
 end

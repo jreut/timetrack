@@ -63,17 +63,14 @@ RSpec.describe Timetrack::Transform do
       }
     end
     let(:expected) do
-      Timetrack::Transform::Day.new(
-        date: ast[:date],
-        events: [
-          Timetrack::Transform::Event.new(
-            unassociated_event.with(
-              begin: Time.new(year, month, day, 10, 22),
-              end: Time.new(year, month, day, 14, 0)
-            ).to_h
-          )
-        ]
-      )
+      [
+        Timetrack::Event.new(
+          unassociated_event.with(
+            begin: Time.new(year, month, day, 10, 22),
+            end: Time.new(year, month, day, 14, 0)
+          ).to_h
+        )
+      ]
     end
 
     specify { is_expected.to eql expected }
