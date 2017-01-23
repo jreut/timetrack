@@ -4,4 +4,4 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in timetrack.gemspec
 gemspec
 
-gem 'parslet', git: 'https://github.com/jreut/parslet', branch: 'master'
+gem 'parslet', git: 'https://github.com/kschiess/parslet', branch: 'master'
