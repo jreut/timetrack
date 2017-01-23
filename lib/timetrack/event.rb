@@ -11,16 +11,12 @@ module Timetrack
 
     private
 
-    def spaces
-      '  '
-    end
-
     def submitted_block
-      submitted ? '* ' : ''
+      '* ' if submitted
     end
 
     def comment_block
-      comment.empty? ? '' : "  ; #{comment}"
+      "  ; #{comment}" unless comment.to_s.empty?
     end
   end
 end

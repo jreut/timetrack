@@ -5,7 +5,7 @@ module Timetrack
     include Anima.new :date, :events
 
     def to_s
-      "#{date_string}\n#{events.map(&:to_s).join("\n")}"
+      "#{date_string}\n#{events.join("\n")}"
     end
 
     private

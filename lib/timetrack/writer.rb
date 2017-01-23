@@ -9,7 +9,7 @@ module Timetrack
     end
 
     def dump
-      days.map(&:to_s).join("\n")
+      days.join("\n\n")
     end
 
     private
